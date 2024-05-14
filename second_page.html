@@ -31,8 +31,33 @@
 <h1>Тестування підключення контейнеру GTM з двома тегами GA4 від різних власників (облікових записів)</h1>
 <hr>
 <h3>Дві тестові кнопки для тестування івентів GA4</h3>
-<button data-test-button-one="true" id="test-button-1">Test button 1</button>
-<button data-test-button-two="true" id="test-button-2">Test button 1</button>
+<button data-test-button-one="true" id="test-button-1" onclick="firstButtonClick()">Test button 1</button>
+<button data-test-button-two="true" id="test-button-2" onclick="secondButtonClick()">Test button 1</button>
+
+<script>
+    function dataLayerPush(data) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ ecommerce: null });
+        dataLayer.push(data);
+    }
+
+    function firstButtonClick() {
+        dataLayerPush({
+            event: "first_button_click",
+            first_test_label: "first_test_value",
+            item_id: new Date().getMilliseconds(),
+        });
+    }
+
+    function secondButtonClick() {
+        dataLayerPush({
+            event: "second_button_click",
+            second_test_label: "second_test_value",
+            item_id: new Date().getMilliseconds(),
+        });
+    }
+</script>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WM4RQVWK"
