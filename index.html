@@ -32,12 +32,25 @@
 <hr>
 <h3>Дві тестові кнопки для тестування івентів GA4</h3>
 <button data-test-button-one="true" id="test-button-1" onclick="firstButtonClick()">Test button 1</button>
-<button data-test-button-two="true" id="test-button-2" onclick="secondButtonClick()">Test button 1</button>
+<button data-test-button-two="true" id="test-button-2" onclick="secondButtonClick()">Test button 2</button>
+<button data-test-button-three="true" id="test-button-3" onclick="secondTTFB()">Test button 3</button>
 
 <script>
+    function getRandomTime() {
+        const randomValue = Math.random(); // Генеруємо випадкове значення від 0 до 1
+
+        if (randomValue <= 0.7) {
+            // Якщо випадкове число від 0 до 0.7, повертаємо число від 2 до 3 секунд
+            return 2 + Math.random() * (3 - 2);
+        } else {
+            // Якщо випадкове число більше 0.7, повертаємо число від 0.1 до 5 секунд
+            return 0.1 + Math.random() * (5 - 0.1);
+        }
+    }
+
     function dataLayerPush(data) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ ecommerce: null });
+        window.dataLayer = window.dataLayer  || [];
+        window.dataLayer.push({ecommerce: null});
         dataLayer.push(data);
     }
 
@@ -56,8 +69,14 @@
             item_id: new Date().getMilliseconds(),
         });
     }
-</script>
 
+    function secondTTFB() {
+        dataLayerPush({
+            event: "target_page_ttfb",
+            value: getRandomTime(),
+        });
+    }
+</script>
 
 
 <!-- Google Tag Manager (noscript) -->
